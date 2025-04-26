@@ -18,6 +18,7 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class YelpReviewSearchEngine {
@@ -45,11 +46,17 @@ public class YelpReviewSearchEngine {
         textFieldType.setStoreTermVectorOffsets(true);
         // term vectors also include positions & offsets :contentReference[oaicite:4]{index=4}
         textFieldType.freeze();
-
         try (IndexWriter writer = new IndexWriter(dir, cfg);
              JsonParser parser = new JsonFactory().createParser(new File(jsonPath))) {
-
             ObjectMapper mapper = new ObjectMapper();
+            List<Long> times = new ArrayList<>();
+            long startAll = System.nanoTime();
+            // Each review in the dataset is separated by a new line
+            // The following number is retrieved by running wc -l yelp_academic_dataset_review.json
+            long totalDocs = 6990280;
+            System.out.println("Total documents to index: " + totalDocs);
+            long count = 0, nextCheckpoint = totalDocs / 10;
+            System.out.println("Index process started...");
             while (parser.nextToken() != null) {
                 if (parser.currentToken() == JsonToken.START_OBJECT) {
                     Review r = mapper.readValue(parser, Review.class);
@@ -70,11 +77,21 @@ public class YelpReviewSearchEngine {
                     doc.add(new StoredField("cool", r.cool));
                     // Use custom textFieldType for the review text
                     doc.add(new Field("text", r.text, textFieldType));
-
                     writer.addDocument(doc);
+
+                    count++;
+                    if (count == nextCheckpoint) {
+                        long t = System.nanoTime() - startAll;
+                        times.add(t);
+                        double pct = nextCheckpoint / totalDocs;
+                        nextCheckpoint += totalDocs / 10;
+                        System.out.printf("Indexed %,d/%,d (%.1f%%)%n", count, totalDocs, pct);
+                    }
                 }
             }
             writer.commit();
+            long totalTime = System.nanoTime() - startAll;
+            System.out.println("Process completed in " + totalTime);
         }
     }
 
