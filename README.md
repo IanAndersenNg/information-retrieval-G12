@@ -23,3 +23,8 @@ mvn clean compile
 ```declarative
 mvn exec:java -Dexec.args='index "<path to yelp_academic_dataset_review.json file here>" search_index'
 ```
+
+## Querying
+
+### Term Query execution with example
+![Screenshot from 2025-04-27 18-30-12](https://github.com/user-attachments/assets/e0c15723-4c3f-44c0-9d58-8f0cfa0df927)
