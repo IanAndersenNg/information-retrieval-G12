@@ -35,4 +35,7 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store./search_index
+.DS_Store
+
+### Maven ###
+./search_index
