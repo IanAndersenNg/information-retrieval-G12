@@ -15,8 +15,10 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,13 +52,15 @@ public class YelpReviewSearchEngine {
              JsonParser parser = new JsonFactory().createParser(new File(jsonPath))) {
             ObjectMapper mapper = new ObjectMapper();
             List<Long> times = new ArrayList<>();
-            long startAll = System.nanoTime();
+            List<Long> cumulativeTimes = new ArrayList<>();
+            List<Long> timesDiff = new ArrayList<>();
             // Each review in the dataset is separated by a new line
             // The following number is retrieved by running wc -l yelp_academic_dataset_review.json
             long totalDocs = 6990280;
             System.out.println("Total documents to index: " + totalDocs);
             long count = 0, nextCheckpoint = totalDocs / 10;
             System.out.println("Index process started...");
+            long startAll = System.nanoTime();
             while (parser.nextToken() != null) {
                 if (parser.currentToken() == JsonToken.START_OBJECT) {
                     Review r = mapper.readValue(parser, Review.class);
@@ -81,9 +85,16 @@ public class YelpReviewSearchEngine {
 
                     count++;
                     if (count == nextCheckpoint) {
-                        long t = System.nanoTime() - startAll;
-                        times.add(t);
-                        double pct = nextCheckpoint / totalDocs;
+                        var now = System.nanoTime();
+                        long cumulativeTime = now - startAll;
+                        if (times.isEmpty()) {
+                            timesDiff.add(cumulativeTime);
+                        } else {
+                            timesDiff.add(now - times.get(times.size() - 1));
+                        }
+                        times.add(now);
+                        cumulativeTimes.add(cumulativeTime);
+                        double pct = (double) nextCheckpoint / totalDocs * 100;
                         nextCheckpoint += totalDocs / 10;
                         System.out.printf("Indexed %,d/%,d (%.1f%%)%n", count, totalDocs, pct);
                     }
@@ -92,6 +103,18 @@ public class YelpReviewSearchEngine {
             writer.commit();
             long totalTime = System.nanoTime() - startAll;
             System.out.println("Process completed in " + totalTime);
+            // Save times to a file
+            try (BufferedWriter writerTimes = Files.newBufferedWriter(Paths.get("indexing_times.txt"))) {
+                for (int i = 0; i < cumulativeTimes.size(); i++) {
+                    double seconds = cumulativeTimes.get(i) / 1e9;
+                    double secondsFromLast = timesDiff.get(i) / 1e9;
+                    writerTimes.write(String.format(
+                            "Checkpoint %d0%%: %.4f seconds taken total, %.4f seconds from last checkpoint%n", i + 1, seconds, secondsFromLast));
+                }
+                System.out.println("Checkpoint times saved to indexing_times.txt");
+            } catch (IOException e) {
+                System.err.println("Failed to save checkpoint times: " + e.getMessage());
+            }
         }
     }
 
