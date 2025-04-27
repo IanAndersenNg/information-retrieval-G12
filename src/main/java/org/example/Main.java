@@ -1,34 +1,41 @@
 package org.example;
 
 import java.io.IOException;
+import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.println("Hello and welcome!");
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
 
-        if (args.length < 1) {
-            System.err.println("Usage: java YelpReviewSearchEngine index <jsonPath> <indexDir>");
-            System.err.println("   or: java YelpReviewSearchEngine search <indexDir> <query> <topN>");
-            System.exit(1);
-        }
-        switch (args[0]) {
-            case "index" -> {
-                try {
-                    YelpReviewSearchEngine.indexReviews(args[1], args[2]);
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                    throw new RuntimeException(e);
+        System.out.println("Hello welcome to Yelp Review Search Engine !!");
+
+        while (true) {
+            System.out.println("1=index  2=search  3=exit");
+            String o = sc.nextLine().trim();
+            if ("1".equals(o)) {
+                System.out.print("jsonPath: ");
+                String j = sc.nextLine().trim();
+                System.out.print("indexDir: ");
+                String idx = sc.nextLine().trim();
+                YelpReviewSearchEngine.indexReviews(j, idx);
+
+            } else if ("2".equals(o)) {
+                System.out.print("indexDir: ");
+                String idx = sc.nextLine().trim();
+                System.out.print("field: ");
+                String f = sc.nextLine().trim();
+                System.out.print("term: ");
+                String t = sc.nextLine().trim();
+                System.out.print("topN: ");
+                int n = Integer.parseInt(sc.nextLine().trim());
+                try (QueryExecutor qe = new QueryExecutor(idx)) {
+                    qe.termQuery(f, t, n);
                 }
-            }
-            case "search" -> {
-                // implement search here
-            }
-            default -> System.err.println("Unknown command: " + args[0]);
-        }
 
+            } else if ("3".equals(o)) {
+                break;
+            }
+        }
+        sc.close();
     }
 }
