@@ -29,11 +29,12 @@ public class QueryExecutor implements AutoCloseable {
         for (ScoreDoc sd : results.scoreDocs) {
             Document doc = searcher.doc(sd.doc);
             String reviewId = doc.get("review_id");
+            String text     = doc.get("text");
             String stars    = doc.get("stars");
 
             System.out.printf(
-              "docID=%d score=%.3f review_id=%s stars=%s%n",
-              sd.doc, sd.score, reviewId, stars
+              "docID=%d | score=%.3f | review_id=%s | review=%s | stars=%s%n",
+              sd.doc, sd.score, reviewId, text, stars
             );
         }
     }

@@ -17,7 +17,7 @@ public class Main {
                 String j = sc.nextLine().trim();
                 System.out.print("indexDir: ");
                 String idx = sc.nextLine().trim();
-                YelpReviewSearchEngine.indexReviews(j, idx);
+                YelpReviewSearchIndexer.indexReviews(j, idx);
 
             } else if ("2".equals(o)) {
                 System.out.print("indexDir: ");

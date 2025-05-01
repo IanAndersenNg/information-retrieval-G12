@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YelpReviewSearchEngine {
+public class YelpReviewSearchIndexer {
 
     public static void indexReviews(String jsonPath, String indexDir) throws IOException {
         // combine Lucene English set with domain terms
@@ -40,12 +40,12 @@ public class YelpReviewSearchEngine {
         // Define a FieldType that stores positions, frequencies, offsets, and term vectors
         FieldType textFieldType = new FieldType();
         textFieldType.setTokenized(true);   // tokenize the text
-        textFieldType.setStored(false);     // we don't need to store full text here
         textFieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
         // inverted index with positions & offsets :contentReference[oaicite:3]{index=3}
         textFieldType.setStoreTermVectors(true);
         textFieldType.setStoreTermVectorPositions(true);
         textFieldType.setStoreTermVectorOffsets(true);
+        textFieldType.setStored(true);
         // term vectors also include positions & offsets :contentReference[oaicite:4]{index=4}
         textFieldType.freeze();
         try (IndexWriter writer = new IndexWriter(dir, cfg);

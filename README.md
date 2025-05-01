@@ -21,10 +21,12 @@ Execute the following commands in succession:
 mvn clean compile
 ```
 ```declarative
-mvn exec:java -Dexec.args='index "<path to yelp_academic_dataset_review.json file here>" search_index'
+mvn exec:java
 ```
 
-## Querying
+To index, enter 1, provide the json path of the yelp_academic_dataset_review.json file, then provide the path of that you want to save the search index file at. Relative path will suffice.
+
+To search, enter 2, provide the path of the search index, the field and term to search for, and the topN results.
 
 ### Term Query execution with example
 ![Screenshot from 2025-04-27 18-30-12](https://github.com/user-attachments/assets/e0c15723-4c3f-44c0-9d58-8f0cfa0df927)

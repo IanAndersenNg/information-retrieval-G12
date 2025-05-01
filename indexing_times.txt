@@ -1,0 +1,10 @@
+Checkpoint 10%: 109.9488 seconds taken total, 109.9488 seconds from last checkpoint
+Checkpoint 20%: 231.2828 seconds taken total, 121.3341 seconds from last checkpoint
+Checkpoint 30%: 355.9562 seconds taken total, 124.6734 seconds from last checkpoint
+Checkpoint 40%: 482.6066 seconds taken total, 126.6504 seconds from last checkpoint
+Checkpoint 50%: 601.1696 seconds taken total, 118.5630 seconds from last checkpoint
+Checkpoint 60%: 744.2117 seconds taken total, 143.0421 seconds from last checkpoint
+Checkpoint 70%: 893.2639 seconds taken total, 149.0522 seconds from last checkpoint
+Checkpoint 80%: 1026.8908 seconds taken total, 133.6269 seconds from last checkpoint
+Checkpoint 90%: 1166.8672 seconds taken total, 139.9764 seconds from last checkpoint
+Checkpoint 100%: 1323.7401 seconds taken total, 156.8729 seconds from last checkpoint
