@@ -82,6 +82,17 @@ Step 3 – Run the Analysis
 
 ## Assignment Component: 3.3 Development of a Search Engine
 
+### Third Party Libraries Used
+
+The following freely available libraries were used:
+ - Lucene: https://lucene.apache.org/
+   - Core package: https://mvnrepository.com/artifact/org.apache.lucene/lucene-core
+   - Query Parser: https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser
+   - Highlighter: https://mvnrepository.com/artifact/org.apache.lucene/lucene-highlighter
+   - Analysis commons: https://mvnrepository.com/artifact/org.apache.lucene/lucene-analysis-common
+ - Jackson databinding: https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+ - Lombok: https://mvnrepository.com/artifact/org.projectlombok/lombok
+
 ### Install Java
 Java installation instructions may be found here:<br>
 https://adoptium.net/temurin/releases/?version=17
@@ -103,13 +114,50 @@ mvn clean compile
 mvn exec:java
 ```
 
-To index, enter 1, provide the json path of the yelp_academic_dataset_review.json file, then provide the path of that you want to save the search index file at. Relative path will suffice.
+To exit, enter 0.
 
-To search, enter 2, provide the path of the search index, the field and term to search for, and the topN results.
+To index, enter 1, provide the path of that you want to save the search index file at. Relative path will suffice.
+
+To search documents for a term, enter 2, provide the field name and term to search for, and the topN results.
+
+To search documents for a phrase, enter 3, provide the field name and phrase to search for, and the topN results.
+
+To retrieve a full review by its review id, enter 4, then enter its review id.
 
 ### Term Query execution with example
 ![Screenshot from 2025-04-27 18-30-12](https://github.com/user-attachments/assets/e0c15723-4c3f-44c0-9d58-8f0cfa0df927)
 
+
+## Assignment Component: 3.4 Sentences with Negation
+
+### Third-Party Libraries Used (with Download Links)
+
+The following freely available Python libraries were used:
+- nltk: https://www.nltk.org/
+
+### Installation & Execution
+
+Step 1 – Install Python and Dependencies 
+• Ensure Python 3.8 or later is installed.  
+• Install required packages via pip:
+
+    pip install nltk
+
+Step 2 – Prepare the Dataset  
+• Download from: https://www.yelp.com/dataset  
+• Extract the file yelp_academic_dataset_review.json  
+• Place it in your working directory
+
+Step 3 – Run the Application
+
+Example Command (in terminal):
+
+    python main.py --data_path "your_path/yelp_academic_dataset_review.json" --num_reviews 10000
+
+### Sample Output Explanation
+Upon completing analysis, the program will display the analysis execution time, number of reviews analyzed, number of reviews containing negation, and total negation sentences found.
+The most common negation patterns, along with their corresponding occurrences within the processed reviews, will also be displayed. 
+Sample negation sentences, as well as the limitations of the analysis will then be displayed. 
 
 
 ## Assignment Component: 3.5 Application - Yelp Review Sentiment Detector
