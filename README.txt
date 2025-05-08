@@ -1,7 +1,8 @@
 # information-retrieval-G12
 
+=====================================================================
 ## Assignment Component: 3.2 Data Analysis
-
+Navigate to the directory 2_Data_Analysis/
 ### Third-Party Libraries Used (with Download Links)
 
 The following freely available Python libraries were used:
@@ -79,9 +80,9 @@ Step 3 – Run the Analysis
       Negative words: ['10', '20', '30', 'ask', 'asked', 'away', 'bad', 'business', 'called', 'car', 'check', 'cold', 'customer', 'customers', 'disappointed', 'half', 'horrible', 'hour', 'left', 'long', 'manager', 'minutes', 'money', 'need', 'ok', 'pay', 'phone', 'room', 'rude', 'said', 'server', 'store', 'table', 'terrible', 'think', 'told', 'took', 'waited', 'waiting', 'waitress', 'wanted', 'wasn', 'won', 'worst']
 
 
-
+=====================================================================
 ## Assignment Component: 3.3 Development of a Search Engine
-
+Navigate to the directory 3_Search_Engine/
 ### Third Party Libraries Used
 
 The following freely available libraries were used:
@@ -124,9 +125,9 @@ To search documents for a phrase, enter 3, provide the field name and phrase to 
 
 To retrieve a full review by its review id, enter 4, then enter its review id.
 
-
+=====================================================================
 ## Assignment Component: 3.4 Sentences with Negation
-
+Navigate to the directory 4_Identifying_Sentences_with_Negation/
 ### Third-Party Libraries Used (with Download Links)
 
 The following freely available Python libraries were used:
@@ -156,9 +157,9 @@ Upon completing analysis, the program will display the analysis execution time, 
 The most common negation patterns, along with their corresponding occurrences within the processed reviews, will also be displayed. 
 Sample negation sentences, as well as the limitations of the analysis will then be displayed. 
 
-
+=====================================================================
 ## Assignment Component: 3.5 Application - Yelp Review Sentiment Detector
-
+Navigate to the directory 5_Sentiment_Analysis_Application/
 ### Third-Party Libraries Used (with Download Links)
 
 The following freely available Python libraries were used:
