@@ -124,9 +124,6 @@ To search documents for a phrase, enter 3, provide the field name and phrase to 
 
 To retrieve a full review by its review id, enter 4, then enter its review id.
 
-### Term Query execution with example
-![Screenshot from 2025-04-27 18-30-12](https://github.com/user-attachments/assets/e0c15723-4c3f-44c0-9d58-8f0cfa0df927)
-
 
 ## Assignment Component: 3.4 Sentences with Negation
 
